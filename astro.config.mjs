@@ -8,15 +8,27 @@ import vercel from "@astrojs/vercel/static";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "Docs with Tailwind",
+      title: "Chewa",
       social: {
-        github: "https://github.com/withastro/starlight",
+        github: "https://github.com/sevenreup/chewa",
       },
       sidebar: [
+        {
+          label: "Introduction",
+          autogenerate: {
+            directory: "introduction",
+          },
+        },
         {
           label: "Basics",
           autogenerate: {
             directory: "basics",
+          },
+        },
+        {
+          label: "Standard library",
+          autogenerate: {
+            directory: "standard-library",
           },
         },
         {
