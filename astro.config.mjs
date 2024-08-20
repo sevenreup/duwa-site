@@ -8,9 +8,9 @@ import vercel from "@astrojs/vercel/static";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "Chewa",
+      title: "Duwa",
       social: {
-        github: "https://github.com/sevenreup/chewa",
+        github: "https://github.com/sevenreup/duwa",
       },
       sidebar: [
         {
