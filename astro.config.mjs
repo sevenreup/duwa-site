@@ -12,6 +12,28 @@ export default defineConfig({
       social: {
         github: "https://github.com/sevenreup/duwa",
       },
+      head: [
+        {
+          tag: "script",
+          attrs: {
+            src: "https://www.googletagmanager.com/gtag/js?id=G-0XTTL1VNER",
+          },
+        },
+        {
+          tag: "script",
+          attrs: {
+            defer: true,
+            
+          },
+          content: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-0XTTL1VNER');
+          `,
+        },
+      ],
       sidebar: [
         {
           label: "Introduction",

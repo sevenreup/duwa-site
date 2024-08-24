@@ -5,7 +5,7 @@ description: This is a collection of basic syntax elements with examples
 
 ## Variables
 
-```golang
+```go
 nambala yambili = 2;
 mawu dzina = "Maliko";
 ```
@@ -69,7 +69,7 @@ za(nambala x = 0; x > 5; x++) {
 
 ## Structs
 
-```golang
+```go
 mtundu Buku {
     wolemba    mawu
     dzina      mawu
