@@ -67,7 +67,7 @@ za(nambala x = 0; x > 5; x++) {
 }
 ```
 
-## Structs
+<!-- ## Structs
 
 ```go
 mtundu Buku {
@@ -75,4 +75,4 @@ mtundu Buku {
     dzina      mawu
     version    nambala
 }
-```
+``` -->
