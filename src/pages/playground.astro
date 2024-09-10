@@ -1,5 +1,5 @@
 ---
-import MonacoAstroComponent from "../components/monaco";
+import MonacoAstroComponent from "../components/editor";
 import ThemeProvider from "virtual:starlight/components/ThemeProvider";
 
 import "virtual:starlight/user-css";
@@ -189,7 +189,7 @@ import "virtual:starlight/user-css";
       <main
         class="flex-auto relative border-t border-gray-200 dark:border-gray-800"
       >
-        <MonacoAstroComponent client:load />
+        <MonacoAstroComponent client:only />
       </main>
     </div>
   </body>
