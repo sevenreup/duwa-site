@@ -42,6 +42,10 @@ export default defineConfig({
           },
         },
         {
+          label: "Playground",
+          link: "/playground",
+        },
+        {
           label: "Basics",
           autogenerate: {
             directory: "basics",
@@ -70,3 +74,4 @@ export default defineConfig({
   output: "static",
   adapter: vercel(),
 });
+
