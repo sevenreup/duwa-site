@@ -20,11 +20,18 @@ const MonacoAstroComponent = () => {
       setLoading(true); // Set loading to true while the Wasm is loading
 
       if ('instantiateStreaming' in WebAssembly) {
+        go.importObject.gojs["syscall/js.finalizeRef"] = _ => 0
         wasmInstance = await WebAssembly.instantiateStreaming(fetch(WASM_PATH), go.importObject)
       } else {
         wasmModule = await fetch(WASM_PATH).then((res) => res.arrayBuffer());
         wasmInstance = await WebAssembly.instantiate(wasmModule, go.importObject);
       }
+
+      window.addEventListener("goConsoleEvent", (event) => {
+        console.log(event.detail);
+        console[event.detail.level](event.detail.message);
+        setOutput(event.detail.message);
+      });
 
       // Initialize the WebAssembly instance
       go.run(wasmInstance.instance);
@@ -38,7 +45,7 @@ const MonacoAstroComponent = () => {
   const runWasm = () => {
     const result = window.runDuwa(code);
     console.log(result);
-    setOutput(JSON.stringify(result));
+    // setOutput(JSON.stringify(result));
   }
 
   useEffect(() => {
