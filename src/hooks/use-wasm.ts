@@ -9,7 +9,6 @@ export function useWasm(path: string) {
 
   async function getWasm(path: string) {
     try {
-      // @ts-expect-error wasm_exec
       const wasm_exec = window?.Go;
       if (wasm_exec) {
         // @ts-expect-error wasm_exec
