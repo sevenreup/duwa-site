@@ -17,3 +17,9 @@ export const META_THEME_COLORS = {
   light: "#ffffff",
   dark: "#09090b",
 };
+
+export const codeEditorThemes = ["one-light", "one-dark-pro"];
+
+export const currentEditorTheme = (mode: string | undefined) => {
+  return mode === "light" ? "one-light" : "one-dark-pro";
+};

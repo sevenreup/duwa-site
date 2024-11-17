@@ -5,7 +5,6 @@ import Editor from "@monaco-editor/react";
 import { INITIAL_CODE } from "./constants";
 import { Header } from "./Header";
 import { Console } from "./Console";
-
 import {
   ResizableHandle,
   ResizablePanel,
@@ -14,6 +13,14 @@ import {
 import { cn } from "@/lib/utils";
 import { useWasm } from "@/hooks/use-wasm";
 import { useTheme } from "next-themes";
+import { codeHighlighter } from "@/lib/highlihter";
+import { shikiToMonaco, textmateThemeToMonacoTheme } from "@shikijs/monaco";
+import { LanguageRegistration } from "shiki";
+import { codeEditorThemes, currentEditorTheme } from "@/config/site";
+
+const duwaTml = import(
+  "@/lang/duwa.tmLanguage.json"
+) as Promise<LanguageRegistration>;
 
 export default function DuwaEditor() {
   const [, loading] = useWasm("/duwa.wasm");
@@ -64,9 +71,21 @@ export default function DuwaEditor() {
             <div className="h-full rounded-lg border bg-card overflow-hidden">
               <Editor
                 height="100%"
-                theme={resolvedTheme == "light" ? "light" : "vs-dark"}
+                theme={currentEditorTheme(resolvedTheme)}
                 value={code}
                 onChange={(value) => setCode(value || "")}
+                language="duwa"
+                beforeMount={(monaco) => {
+                  monaco.languages.register({ id: "duwa" });
+                  (async () => {
+                    const lighter = await codeHighlighter(await duwaTml);
+                    codeEditorThemes.forEach((theme) => {
+                      textmateThemeToMonacoTheme(lighter.getTheme(theme));
+                    });
+                    shikiToMonaco(lighter, monaco);
+                    monaco.editor.setTheme(currentEditorTheme(resolvedTheme));
+                  })();
+                }}
                 options={{
                   minimap: { enabled: false },
                   fontSize: 14,
