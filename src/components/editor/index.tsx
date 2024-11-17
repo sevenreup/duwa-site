@@ -28,9 +28,11 @@ export default function DuwaEditor() {
   const [output, setOutput] = useState("");
   const { resolvedTheme } = useTheme();
   const [isConsoleCollapsed, setIsConsoleCollapsed] = useState(false);
+  const [scrollToBottom, setScrollToBottom] = useState<number | null>(null);
 
   const appendOutput = (message: string) => {
     setOutput((prev) => prev + message);
+    setScrollToBottom(Date.now());
   };
 
   const resetConsole = () => {
@@ -49,8 +51,10 @@ export default function DuwaEditor() {
     try {
       resetConsole();
       window.runDuwa(code);
+      setIsConsoleCollapsed(false);
     } catch (error) {
       setOutput(`Error: ${(error as Error).message}`);
+      setIsConsoleCollapsed(false);
     }
   };
 
@@ -60,14 +64,18 @@ export default function DuwaEditor() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="fixed inset-0 flex flex-col bg-background">
       <Header loading={loading} />
-      <main className="flex-1 container mx-auto p-4">
+      <main className="flex-1 overflow-hidden">
         <ResizablePanelGroup
           direction="vertical"
-          className="min-h-[calc(100vh-8rem)]"
+          className="min-h-0 h-full relative"
         >
-          <ResizablePanel defaultSize={70} minSize={30}>
+          <ResizablePanel
+            defaultSize={70}
+            minSize={30}
+            className={cn(isConsoleCollapsed && "flex-1")}
+          >
             <div className="h-full rounded-lg border bg-card overflow-hidden">
               <Editor
                 height="100%"
@@ -95,16 +103,29 @@ export default function DuwaEditor() {
                   readOnly: false,
                   automaticLayout: true,
                   padding: { top: 16, bottom: 16 },
+                  wordWrap: "on",
+                  scrollbar: {
+                    vertical: "visible",
+                    horizontal: "visible",
+                    verticalScrollbarSize: 10,
+                    horizontalScrollbarSize: 10,
+                  },
                 }}
                 loading={<div className="p-4">Loading editor...</div>}
               />
             </div>
           </ResizablePanel>
-          <ResizableHandle withHandle />
-          <ResizablePanel
-            defaultSize={30}
-            minSize={isConsoleCollapsed ? 6 : 20}
-            className={cn(isConsoleCollapsed && "h-auto")}
+          <ResizableHandle
+            withHandle
+            className={cn(!isConsoleCollapsed && "visible", "invisible")}
+          />
+          <ResizablePanel 
+            defaultSize={30} 
+            minSize={5}
+            className={cn(
+              "transition-all duration-300",
+              isConsoleCollapsed && "!h-auto absolute bottom-0 left-0 right-0 z-10"
+            )}
           >
             <Console
               output={output}
@@ -114,6 +135,7 @@ export default function DuwaEditor() {
               onToggleCollapse={() =>
                 setIsConsoleCollapsed(!isConsoleCollapsed)
               }
+              scrollTrigger={scrollToBottom}
             />
           </ResizablePanel>
         </ResizablePanelGroup>

@@ -13,7 +13,7 @@ interface HeaderProps {
 export function Header({ loading }: HeaderProps) {
   return (
     <div className="shrink-0 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4">
+      <div className="flex flex-row items-center justify-between gap-2 md:gap-4 p-4">
         <Link href="/">
           <h1 className="text-2xl font-bold flex flex-row gap-2">
             <Logo className="size-8" />
