@@ -13,13 +13,13 @@ import {
 } from "../ui/resizable";
 import { cn } from "@/lib/utils";
 import { useWasm } from "@/hooks/use-wasm";
+import { useTheme } from "next-themes";
 
 export default function DuwaEditor() {
   const [, loading] = useWasm("/duwa.wasm");
   const [code, setCode] = useState(INITIAL_CODE);
   const [output, setOutput] = useState("");
-  const [theme, setTheme] = useState("vs-dark");
-  const [language, setLanguage] = useState("javascript");
+  const { resolvedTheme } = useTheme();
   const [isConsoleCollapsed, setIsConsoleCollapsed] = useState(false);
 
   const appendOutput = (message: string) => {
@@ -41,7 +41,6 @@ export default function DuwaEditor() {
   const handleRunCode = () => {
     try {
       resetConsole();
-      // @ts-expect-error wasm
       window.runDuwa(code);
     } catch (error) {
       setOutput(`Error: ${(error as Error).message}`);
@@ -55,13 +54,7 @@ export default function DuwaEditor() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header
-        language={language}
-        theme={theme}
-        onLanguageChange={setLanguage}
-        onThemeChange={setTheme}
-        loading={loading}
-      />
+      <Header loading={loading} />
       <main className="flex-1 container mx-auto p-4">
         <ResizablePanelGroup
           direction="vertical"
@@ -71,8 +64,7 @@ export default function DuwaEditor() {
             <div className="h-full rounded-lg border bg-card overflow-hidden">
               <Editor
                 height="100%"
-                // language={language}
-                theme={theme}
+                theme={resolvedTheme == "light" ? "light" : "vs-dark"}
                 value={code}
                 onChange={(value) => setCode(value || "")}
                 options={{

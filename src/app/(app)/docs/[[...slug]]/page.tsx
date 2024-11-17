@@ -1,4 +1,4 @@
-import "@/styles/mdx.css"
+import "@/styles/mdx.css";
 
 import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/utils";
@@ -56,7 +56,7 @@ export async function generateMetadata({
       title: doc.title,
       description: doc.description,
       images: [siteConfig.ogImage],
-      creator: siteConfig.twitter,
+      creator: siteConfig.links.twitter,
     },
   };
 }
@@ -78,7 +78,7 @@ export default async function DocPage({ params }: DocPageProps) {
     notFound();
   }
 
-  console.log(doc);
+  // console.log(doc);
 
   return (
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">

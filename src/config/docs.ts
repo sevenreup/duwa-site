@@ -1,9 +1,11 @@
 import { SidebarNavItem } from "@/types/nav";
 
 export interface DocsConfig {
+  currentVersion: string;
   sidebarNav: SidebarNavItem[];
 }
 export const docsConfig: DocsConfig = {
+  currentVersion: "0.0.5",
   sidebarNav: [
     {
       title: "Getting Started",
