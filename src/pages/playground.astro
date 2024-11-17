@@ -1,5 +1,6 @@
 ---
 import "@fontsource/geist-sans";
+import "./playground.css";
 
 import MonacoAstroComponent from "../components/editor";
 
@@ -8,7 +9,6 @@ import ThemeProvider from "virtual:starlight/components/ThemeProvider";
 
 import { FaBeer as PlayIcon } from "react-icons/fa";
 import Logo from "@/components/duwa.astro";
-import "@/components/editor/editor.css";
 
 // import "virtual:starlight/user-css";
 import { Button } from "@/components/ui/button";
@@ -18,10 +18,9 @@ import DuwaEditor from "@/components/editor/editor";
 <html class="fixed overflow-hidden h-full w-full dark">
   <head>
     <!-- <ThemeProvider {...Astro.props} /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body
-    class="overflow-hidden w-full min-h-full text-foreground bg-background"
-  >
+  <body class="overflow-hidden w-full min-h-full text-foreground bg-background">
     <div class="">
       <DuwaEditor client:only />
     </div>
