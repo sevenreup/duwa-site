@@ -17,6 +17,7 @@ import { codeHighlighter } from "@/lib/highlihter";
 import { shikiToMonaco, textmateThemeToMonacoTheme } from "@shikijs/monaco";
 import { LanguageRegistration } from "shiki";
 import { codeEditorThemes, currentEditorTheme } from "@/config/site";
+import { DuweWasmEvent, DuweWasmEventDetail } from "@/types/go";
 
 const duwaTml = import(
   "@/lang/duwa.tmLanguage.json"
@@ -25,25 +26,23 @@ const duwaTml = import(
 export default function DuwaEditor() {
   const [, loading] = useWasm("/duwa.wasm");
   const [code, setCode] = useState(INITIAL_CODE);
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState<DuweWasmEventDetail[]>([]);
   const { resolvedTheme } = useTheme();
   const [isConsoleCollapsed, setIsConsoleCollapsed] = useState(false);
-  const [scrollToBottom, setScrollToBottom] = useState<number | null>(null);
 
-  const appendOutput = (message: string) => {
-    setOutput((prev) => prev + message);
-    setScrollToBottom(Date.now());
+  const appendOutput = (message: DuweWasmEventDetail) => {
+    setOutput((prev) => [...prev, message]);
   };
 
   const resetConsole = () => {
-    setOutput("");
+    setOutput([]);
   };
 
   useEffect(() => {
     window.addEventListener("goConsoleEvent", (e) => {
-      const event = e as CustomEvent;
+      const event = e as DuweWasmEvent;
       console.log(event);
-      appendOutput(event.detail.message);
+      appendOutput(event.detail);
     });
   }, []);
 
@@ -53,7 +52,13 @@ export default function DuwaEditor() {
       window.runDuwa(code);
       setIsConsoleCollapsed(false);
     } catch (error) {
-      setOutput(`Error: ${(error as Error).message}`);
+      setOutput([
+        {
+          level: "error",
+          message: `Error: ${(error as Error).message}`,
+          type: "runtime",
+        },
+      ]);
       setIsConsoleCollapsed(false);
     }
   };
@@ -119,12 +124,13 @@ export default function DuwaEditor() {
             withHandle
             className={cn(!isConsoleCollapsed && "visible", "invisible")}
           />
-          <ResizablePanel 
-            defaultSize={30} 
+          <ResizablePanel
+            defaultSize={30}
             minSize={5}
             className={cn(
               "transition-all duration-300",
-              isConsoleCollapsed && "!h-auto absolute bottom-0 left-0 right-0 z-10"
+              isConsoleCollapsed &&
+                "!h-auto absolute bottom-0 left-0 right-0 z-10"
             )}
           >
             <Console
@@ -135,7 +141,6 @@ export default function DuwaEditor() {
               onToggleCollapse={() =>
                 setIsConsoleCollapsed(!isConsoleCollapsed)
               }
-              scrollTrigger={scrollToBottom}
             />
           </ResizablePanel>
         </ResizablePanelGroup>

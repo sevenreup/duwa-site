@@ -4,14 +4,16 @@ import { Play, RotateCcw, ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { useEffect, useRef } from "react";
+import { DuweWasmEventDetail } from "@/types/go";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 interface ConsoleProps {
-  output: string;
+  output: DuweWasmEventDetail[];
   onRun: () => void;
   onReset: () => void;
   isCollapsed: boolean;
   onToggleCollapse: () => void;
-  scrollTrigger: number | null;
 }
 
 export function Console({
@@ -20,7 +22,6 @@ export function Console({
   onReset,
   isCollapsed,
   onToggleCollapse,
-  scrollTrigger,
 }: ConsoleProps) {
   const consoleRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -28,7 +29,7 @@ export function Console({
       "[data-radix-scroll-area-viewport]"
     );
     scrollArea?.scrollTo(0, scrollArea.scrollHeight);
-  }, [scrollTrigger]);
+  }, [output]);
 
   return (
     <div
@@ -85,10 +86,34 @@ export function Console({
         </div>
         {!isCollapsed && (
           <TabsContent value="console" className="flex-1 min-h-0">
-            <ScrollArea className="h-full" ref={consoleRef}>
-              <pre className="font-mono text-sm whitespace-pre-wrap">
-                {output || "Console output will appear here..."}
-              </pre>
+            <ScrollArea className="h-full p-2" ref={consoleRef}>
+              {output.map((item, index) => {
+                if (item.type === "parser" || item.type === "compiler") {
+                  return (
+                    <Alert variant="destructive" key={index}>
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertTitle>Compile Error</AlertTitle>
+                      <AlertDescription>{item.message}</AlertDescription>
+                    </Alert>
+                  );
+                }
+                return (
+                  <pre
+                    key={index}
+                    className={cn(
+                      "font-mono text-sm whitespace-pre-wrap",
+                      item.level === "error" && "text-red-500"
+                    )}
+                  >
+                    {item.message}
+                  </pre>
+                );
+              })}
+              {output.length <= 0 && (
+                <pre className="font-mono text-sm whitespace-pre-wrap">
+                  Console output will appear here...
+                </pre>
+              )}
             </ScrollArea>
           </TabsContent>
         )}
