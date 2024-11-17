@@ -1,9 +1,15 @@
 export const siteConfig = {
-  ogImage: "/og-image.png",
   name: "Duwa",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.duwa.cphiri.dev",
+  description: "A programming language for Malawians.",
+  ogImage: "/og-image.png",
   links: {
     github: "https://github.com/sevenreup/duwa",
-    twitter: "@cphiri_dev",
+    twitterAt: "@cphiri_dev",
+  },
+  author: {
+    name: "Christopher Phiri",
+    url: "https://www.cphiri.dev",
   },
 };
 
