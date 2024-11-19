@@ -98,9 +98,8 @@ export default makeSource(async () => {
     onVisitHighlightedChars(node) {
       node.properties.className = ["word--highlighted"];
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async getHighlighter(opts) {
-      console.log(opts);
-
       return lighter;
     },
   };
