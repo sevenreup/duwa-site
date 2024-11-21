@@ -9,7 +9,19 @@ export const docsConfig: DocsConfig = {
   sidebarNav: [
     {
       title: "Getting Started",
-      items: [{ title: "Introduction", href: "/docs", items: [] }],
+      items: [
+        { title: "Introduction", href: "/docs", items: [] },
+        {
+          title: "Tutorials",
+          items: [
+            {
+              title: "Hello, World!",
+              href: "/docs/tutorials/hello-world",
+              items: [],
+            },
+          ],
+        },
+      ],
     },
     {
       title: "Basics",
@@ -17,7 +29,11 @@ export const docsConfig: DocsConfig = {
         { title: "Basic syntax", href: "/docs/basics/basic-syntax", items: [] },
         { title: "Types", href: "/docs/basics/types", items: [] },
         { title: "Variables", href: "/docs/basics/variables", items: [] },
-        { title: "Ddondomeko (Functions)", href: "/docs/basics/functions", items: [] },
+        {
+          title: "Ndondomeko (Functions)",
+          href: "/docs/basics/functions",
+          items: [],
+        },
         { title: "Imports", href: "/docs/basics/imports", items: [] },
       ],
     },
@@ -34,7 +50,6 @@ export const docsConfig: DocsConfig = {
         { title: "Arrays", href: "/docs/types/arrays", items: [] },
         { title: "Classes", href: "/docs/types/classes", items: [] },
         { title: "Mgwirizano (Maps)", href: "/docs/types/maps", items: [] },
-        { title: "Type Conversion", href: "/docs/types/type-conversion", items: [] },
       ],
     },
     {

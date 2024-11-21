@@ -6,6 +6,8 @@ import { allDocs } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Mdx } from "@/components/mdx-components";
+import { DashboardTableOfContents } from "@/components/toc";
+import { getTableOfContents } from "@/lib/toc";
 
 interface DocPageProps {
   params: Promise<{
@@ -78,10 +80,10 @@ export default async function DocPage({ params }: DocPageProps) {
     notFound();
   }
 
-  // console.log(doc);
+  const toc = await getTableOfContents(doc.body.raw);
 
   return (
-    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px] px-4 lg:px-0">
       <div className="mx-auto w-full min-w-0 max-w-3xl">
         <div className="pb-12 pt-8">
           <Mdx code={doc.body.code} />
@@ -89,7 +91,9 @@ export default async function DocPage({ params }: DocPageProps) {
       </div>
       <div className="hidden text-sm xl:block">
         <div className="sticky top-20 -mt-6 h-[calc(100vh-3.5rem)] pt-4">
-          <div className="no-scrollbar h-full overflow-auto pb-10"></div>
+          <div className="no-scrollbar h-full overflow-auto pb-10">
+            {doc.toc && <DashboardTableOfContents toc={toc} />}
+          </div>
         </div>
       </div>
     </main>

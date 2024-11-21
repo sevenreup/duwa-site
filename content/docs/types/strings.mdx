@@ -1,5 +1,81 @@
 ---
-title: Strings
-description: Strings are sequences of characters.
+title: Mawu (Strings)
+description: Mawu is a type that represents a sequence of characters.
 ---
-Coming soon
+
+# Mawu (Strings)
+
+A string is a sequence of characters. In Duwa, Mawu (String) is a type that represents strings. It is used to represent text values. These strings are UTF-8 encoded.
+
+## Syntax
+
+```duwa
+mawu x = "Hello, World!";
+```
+
+## Examples usage
+
+```duwa
+mawu x = "Hello, World!";
+Khonso.lemba(x);
+```
+
+## Escape Sequences
+
+Duwa supports the following escape sequences in strings:
+
+- `\"` - double quote
+- `\\` - backslash
+- `\n` - newline
+- `\r` - carriage return
+- `\t` - tab
+- `\u{}` - Unicode code point
+
+```duwa
+mawu x = "Hello, \"World\"!";
+mawu y = "Hello, \nWorld!";
+mawu z = "Hello, \u{1F600}!";
+```
+
+## Conversion to Mawu
+
+To explicitly convert a value to a string, you can use the `kuMawu` function.
+
+### Nambala
+
+Numbers are converted to their string representation.
+
+```duwa
+mawu x = kuMawu(10);
+Khonso.lemba(x); // "10"
+```
+
+### Tsimikizi
+
+`zoona` is converted to `"zoona"` and `bodza` is converted to `"bodza"`.
+
+```duwa
+mawu x = kuMawu(zoona);
+Khonso.lemba(x); // "zoona"
+```
+
+### Array
+
+Arrays are converted to their string representation.
+
+```duwa
+mawu x = kuMawu([1, 2, 3]);
+Khonso.lemba(x); // "[1, 2, 3]"
+```
+
+### Classes
+
+Classes are converted to their string representation.
+
+```duwa
+Munthu munthu = Munthu();
+mawu x = kuMawu(munthu);
+Khonso.lemba(x); // "Munthu"
+```
+
+> Note: Convertion from other types to string is not supported yet. (If it works, it's a bug)
