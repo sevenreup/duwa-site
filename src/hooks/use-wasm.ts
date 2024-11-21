@@ -46,14 +46,19 @@ export function useWasm(path: string) {
     }
   }
 
+  function initConsole() {
+    window.duwaConsoleReady();
+  }
+
   useEffect(() => {
     getWasm(path)
       .then((exp) => {
         setState([exp, false, null]);
+        initConsole();
         console.log("wasm initialized");
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Failed to load wasm", err);
         setState([null, false, err]);
       });
   }, [path]);

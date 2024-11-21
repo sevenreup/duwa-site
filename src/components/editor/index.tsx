@@ -17,7 +17,11 @@ import { codeHighlighter } from "@/lib/highlihter";
 import { shikiToMonaco, textmateThemeToMonacoTheme } from "@shikijs/monaco";
 import { LanguageRegistration } from "shiki";
 import { codeEditorThemes, currentEditorTheme } from "@/config/site";
-import { DuweWasmEvent, DuweWasmEventDetail } from "@/types/go";
+import {
+  DuweWasmEvent,
+  DuwaWasmEventDetail,
+  DuwaConsoleCommandEventDetail,
+} from "@/types/go";
 
 const duwaTml = import(
   "@/lang/duwa.tmLanguage.json"
@@ -26,12 +30,12 @@ const duwaTml = import(
 export default function DuwaEditor() {
   const [, loading] = useWasm("/duwa.wasm");
   const [code, setCode] = useState(INITIAL_CODE);
-  const [output, setOutput] = useState<DuweWasmEventDetail[]>([]);
+  const [output, setOutput] = useState<DuwaWasmEventDetail[] | null>(null);
   const { resolvedTheme } = useTheme();
   const [isConsoleCollapsed, setIsConsoleCollapsed] = useState(false);
 
-  const appendOutput = (message: DuweWasmEventDetail) => {
-    setOutput((prev) => [...prev, message]);
+  const appendOutput = (message: DuwaWasmEventDetail) => {
+    setOutput((prev) => [...(prev ?? []), message]);
   };
 
   const resetConsole = () => {
@@ -40,16 +44,24 @@ export default function DuwaEditor() {
 
   useEffect(() => {
     window.addEventListener("goConsoleEvent", (e) => {
-      const event = e as DuweWasmEvent;
+      const { detail: event } = e as DuweWasmEvent;
       console.log(event);
-      appendOutput(event.detail);
+      if (event.type === "duwaConsoleCommandEvent") {
+        const { command } = event.detail as DuwaConsoleCommandEventDetail;
+        if (command == "clear") {
+          resetConsole();
+        }
+        return;
+      } else if (event.type === "duwaLogEvent") {
+        appendOutput(event.detail as DuwaWasmEventDetail);
+      }
     });
   }, []);
 
   const handleRunCode = () => {
     try {
       resetConsole();
-      window.runDuwa(code);
+      window.duwaRun(code);
       setIsConsoleCollapsed(false);
     } catch (error) {
       setOutput([
@@ -66,6 +78,10 @@ export default function DuwaEditor() {
   const handleReset = () => {
     setCode(INITIAL_CODE);
     resetConsole();
+  };
+
+  const onInputEnter = (input: string) => {
+    window.duwaConsoleProcessInput(input);
   };
 
   return (
@@ -141,6 +157,7 @@ export default function DuwaEditor() {
               onToggleCollapse={() =>
                 setIsConsoleCollapsed(!isConsoleCollapsed)
               }
+              onInputEnter={onInputEnter}
             />
           </ResizablePanel>
         </ResizablePanelGroup>

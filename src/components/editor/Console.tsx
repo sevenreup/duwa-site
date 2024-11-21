@@ -1,19 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Play, RotateCcw, ChevronDown, ChevronUp } from "lucide-react";
+import { Play, RotateCcw, ChevronDown, ChevronUp, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
-import { useEffect, useRef } from "react";
-import { DuweWasmEventDetail } from "@/types/go";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { DuwaWasmEventDetail } from "@/types/go";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
 interface ConsoleProps {
-  output: DuweWasmEventDetail[];
+  output: DuwaWasmEventDetail[] | null;
   onRun: () => void;
   onReset: () => void;
   isCollapsed: boolean;
   onToggleCollapse: () => void;
+  onInputEnter: (input: string) => void;
 }
 
 export function Console({
@@ -22,14 +23,52 @@ export function Console({
   onReset,
   isCollapsed,
   onToggleCollapse,
+  onInputEnter,
 }: ConsoleProps) {
-  const consoleRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const [input, setInput] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
   useEffect(() => {
-    const scrollArea = consoleRef.current?.querySelector(
+    const scrollArea = scrollAreaRef.current?.querySelector(
       "[data-radix-scroll-area-viewport]"
     );
     scrollArea?.scrollTo(0, scrollArea.scrollHeight);
   }, [output]);
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+
+    setHistory((prev) => [...prev, input]);
+    onInputEnter(input);
+    setInput("");
+    setHistoryIndex(-1);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (historyIndex < history.length - 1) {
+        const newIndex = historyIndex + 1;
+        setHistoryIndex(newIndex);
+        setInput(history[history.length - 1 - newIndex]);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const newIndex = historyIndex - 1;
+        setHistoryIndex(newIndex);
+        setInput(history[history.length - 1 - newIndex]);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setInput("");
+      }
+    }
+  };
 
   return (
     <div
@@ -85,9 +124,9 @@ export function Console({
           </div>
         </div>
         {!isCollapsed && (
-          <TabsContent value="console" className="flex-1 min-h-0">
-            <ScrollArea className="h-full p-2" ref={consoleRef}>
-              {output.map((item, index) => {
+          <TabsContent value="console" className="flex-1 min-h-0 flex flex-col">
+            <ScrollArea ref={scrollAreaRef} className="flex-1">
+              {(output ?? []).map((item, index) => {
                 if (item.type === "parser" || item.type === "compiler") {
                   return (
                     <Alert variant="destructive" key={index}>
@@ -109,12 +148,30 @@ export function Console({
                   </pre>
                 );
               })}
-              {output.length <= 0 && (
+              {output == null && (
                 <pre className="font-mono text-sm whitespace-pre-wrap">
                   Console output will appear here...
                 </pre>
               )}
             </ScrollArea>
+            <div className="border-t p-2 sm:p-3">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Type your code here..."
+                  className="flex-1 bg-background px-3 py-1 text-sm rounded-md border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                />
+                <Button size="sm" onClick={handleSend} className="h-8 px-3">
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                Press Enter to execute. Use ↑↓ to navigate history
+              </p>
+            </div>
           </TabsContent>
         )}
       </Tabs>
