@@ -1,0 +1,39 @@
+---
+title: Tsimikizi (Boolean)
+description: Tsimikizi is a type that represents a binary value.
+---
+
+# Tsimikizi (Boolean)
+
+Tsimikizi (Boolean) only has two values, `zoona` or `bodza`. It is used to represent binary values.
+
+## Syntax
+
+```duwa
+tsimikizi x = zoona;
+tsimikizi y = bodza;
+```
+
+## Examples usage
+
+```duwa
+mawu dzina = "Tsimikizi";
+tsimikizi x = dzina == "Tsimikizi";
+nga x {
+  Khonso.lemba("Dzina ili zoona");
+} ndi {
+  Khonso.lemba("Dzina ili bodza");
+}
+```
+
+## Conversion to Tsimikizi
+
+To explicitly convert a value to a boolean, you can use the `kuTsimikizi` function.
+The following values are converted to `bodza`:
+
+- `"bodza"`
+- `0`, `0.0`, `-0.0`
+- empty string `""`, the string `"0"`
+- `palibe`
+
+All other values are converted to `zoona`.

@@ -1,0 +1,50 @@
+---
+title: Nambala (Number)
+description: Nambala is a numeric type that represents numbers.
+---
+
+# Nambala (Number)
+
+In Duwa, Nambala (Number) is a type that represents numbers. It is used to represent numeric values.
+Numbers in Duwa are represented using the IEEE 754 standard. In duwa there no difference between integers and floating point numbers.
+
+## Syntax
+
+```duwa
+nambala x = 10;
+nambala y = 10.0;
+```
+
+## Examples usage
+
+```duwa
+nambala x = 10;
+nambala y = 10.0;
+
+nambala z = x + y;
+Khonso.lemba(z);
+```
+
+## Conversion to Nambala
+
+To explicitly convert a value to a number, you can use the `kuNambala` function.
+
+### strings
+
+If the string is a valid number, it will be converted to a number. Otherwise, it will be converted to `0`.
+
+```duwa
+nambala x = kuNambala("10");
+Khonso.lemba(x); // 10
+```
+
+### Tsimikizi
+
+`zoona` is converted to `1` and `bodza` is converted to `0`.
+
+```duwa
+nambala x = kuNambala(zoona);
+Khonso.lemba(x); // 1
+```
+
+> Note: Convertion from other types to number is not supported yet. (If it works, it's a bug)

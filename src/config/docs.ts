@@ -15,15 +15,33 @@ export const docsConfig: DocsConfig = {
       title: "Basics",
       items: [
         { title: "Basic syntax", href: "/docs/basics/basic-syntax", items: [] },
-        { title: "Classes", href: "/docs/basics/classes", items: [] },
-        { title: "Functions", href: "/docs/basics/functions", items: [] },
+        { title: "Types", href: "/docs/basics/types", items: [] },
+        { title: "Variables", href: "/docs/basics/variables", items: [] },
+        { title: "Ddondomeko (Functions)", href: "/docs/basics/functions", items: [] },
         { title: "Imports", href: "/docs/basics/imports", items: [] },
+      ],
+    },
+    {
+      title: "Types",
+      items: [
+        { title: "Nambala (Numbers)", href: "/docs/types/number", items: [] },
+        { title: "Mawu (Strings)", href: "/docs/types/strings", items: [] },
+        {
+          title: "Tsimikizi (Boolean)",
+          href: "/docs/types/boolean",
+          items: [],
+        },
+        { title: "Arrays", href: "/docs/types/arrays", items: [] },
+        { title: "Classes", href: "/docs/types/classes", items: [] },
+        { title: "Mgwirizano (Maps)", href: "/docs/types/maps", items: [] },
+        { title: "Type Conversion", href: "/docs/types/type-conversion", items: [] },
       ],
     },
     {
       title: "Standard Library",
       items: [
         { title: "Console", href: "/docs/standard-library/console", items: [] },
+        { title: "Math", href: "/docs/standard-library/math", items: [] },
       ],
     },
     {
