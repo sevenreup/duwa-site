@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 import { CodeBlockWrapper } from "./code-block-wrapper";
 import { StyleWrapper } from "./style-wrapper";
+import { FunctionDocumentation } from "./docs/function-docs";
 
 interface MdxProps {
   code: string;
@@ -171,6 +172,9 @@ const components = {
   ),
   CodeBlockWrapper: ({ ...props }) => (
     <CodeBlockWrapper className="rounded-md border" {...props} />
+  ),
+  FunctionDocumentation: ({ ...props }) => (
+    <FunctionDocumentation source={props.source} infoKey={props.infoKey} />
   ),
 };
 

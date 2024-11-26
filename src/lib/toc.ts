@@ -4,6 +4,7 @@
 import { toc } from "mdast-util-toc";
 import { remark } from "remark";
 import { visit } from "unist-util-visit";
+import { getGenDocTOC } from "./generated-docs";
 
 const textTypes = ["text", "emphasis", "strong", "inlineCode"];
 
@@ -73,9 +74,17 @@ const getToc = () => (node, file) => {
 export type TableOfContents = Items;
 
 export async function getTableOfContents(
-  content: string
+  content: string,
+  gen: { source?: string; infoKey?: string }
 ): Promise<TableOfContents> {
-  const result = await remark().use(getToc).process(content);
+  console.log(gen);
 
-  return result.data;
+  const result = (await remark().use(getToc).process(content)).data;
+  if (gen.source && gen.infoKey) {
+    const genToc = getGenDocTOC(gen.source.trim(), gen.infoKey.trim());
+    if (genToc.length > 0) {
+      result.items = [...(result.items ?? []), ...genToc];
+    }
+  }
+  return result;
 }

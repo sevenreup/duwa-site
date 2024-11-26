@@ -53,6 +53,14 @@ export const Doc = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
+    source: {
+      type: "string",
+      required: false,
+    },
+    infoKey: {
+      type: "string",
+      required: false,
+    },
     published: {
       type: "boolean",
       default: true,
@@ -78,6 +86,66 @@ export const Doc = defineDocumentType(() => ({
     },
   },
   computedFields,
+}));
+
+const ArgumentData = defineNestedType(() => ({
+  name: "ArgumentData",
+  fields: {
+    Name: { type: "string", required: true },
+    Type: { type: "string", required: true },
+  },
+}));
+
+const FunctionInfo = defineNestedType(() => ({
+  name: "FunctionInfo",
+  fields: {
+    Name: { type: "string", required: true },
+    Arguments: { type: "list", of: ArgumentData, default: [] },
+    RetunType: { type: "string", required: true },
+    Doc: { type: "mdx", required: true },
+  },
+}));
+
+const BuiltinInfoData = defineNestedType(() => ({
+  name: "BuiltinInfoData",
+  fields: {
+    Functions: { type: "list", of: FunctionInfo, default: [] },
+    SourceFile: { type: "string", required: true },
+  },
+}));
+
+export const LibraryInfo = defineDocumentType(() => ({
+  name: "LibraryInfo",
+  filePathPattern: `generated/libraries/*.json`,
+  contentType: "data",
+  fields: {
+    Name: { type: "string", required: true },
+    Doc: { type: "mdx", required: true },
+    Methods: { type: "list", of: FunctionInfo, default: [] },
+    SourceFile: { type: "string", required: true },
+  },
+}));
+
+export const BuiltinInfo = defineDocumentType(() => ({
+  name: "BuiltinInfo",
+  filePathPattern: `generated/builtins.json`,
+  contentType: "data",
+  fields: {
+    Data: { type: "list", of: BuiltinInfoData, default: [] },
+  },
+}));
+
+export const StructInfo = defineDocumentType(() => ({
+  name: "StructInfo",
+  filePathPattern: `generated/types/*.json`,
+  contentType: "data",
+  fields: {
+    Name: { type: "string", required: true },
+    Alternatives: { type: "list", of: { type: "string" }, default: [] },
+    Doc: { type: "mdx", required: true },
+    Methods: { type: "list", of: FunctionInfo, default: [] },
+    SourceFile: { type: "string", required: true },
+  },
 }));
 
 export default makeSource(async () => {
@@ -106,7 +174,7 @@ export default makeSource(async () => {
   };
   return {
     contentDirPath: "./content",
-    documentTypes: [Doc],
+    documentTypes: [Doc, StructInfo, LibraryInfo, BuiltinInfo],
     mdx: {
       remarkPlugins: [remarkGfm, codeImport],
       rehypePlugins: [

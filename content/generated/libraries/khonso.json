@@ -1,0 +1,30 @@
+{
+  "Name": "Khonso",
+  "Doc": "This is the console module\nIt contains functions that interact with the console\nIt is used to read and write to the console",
+  "Methods": [
+    {
+      "Name": "lemba",
+      "Arguments": null,
+      "returns": "null",
+      "Doc": "This method prints the arguments to the console\n\n`Example`\n```\nKhonso.lemba(\"Hello, World!\") # prints \"Hello, World!\"\n```"
+    },
+    {
+      "Name": "landira",
+      "Arguments": [
+        {
+          "Name": "zolemba",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "mawu",
+      "Doc": "This method reads a string from the console\n\n`Example`\n```\nKhonso.landira() # returns the string entered by the user\n```"
+    },
+    {
+      "Name": "fufuta",
+      "Arguments": null,
+      "returns": "null",
+      "Doc": "This method clears the console\n\n`Example`\n```\nKhonso.fufuta() # clears the console\n```"
+    }
+  ],
+  "SourceFile": "src\\library\\modules\\console.go"
+}

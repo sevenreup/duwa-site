@@ -80,7 +80,10 @@ export default async function DocPage({ params }: DocPageProps) {
     notFound();
   }
 
-  const toc = await getTableOfContents(doc.body.raw);
+  const toc = await getTableOfContents(doc.body.raw, {
+    source: doc.source,
+    infoKey: doc.infoKey,
+  });
 
   return (
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px] px-4 lg:px-0">

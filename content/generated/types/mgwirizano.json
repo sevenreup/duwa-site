@@ -1,0 +1,7 @@
+{
+  "Name": "mgwirizano",
+  "Alternatives": null,
+  "Doc": "This is a map object that is used to store key-value pairs.",
+  "Methods": [],
+  "SourceFile": "src\\object\\map.go"
+}
