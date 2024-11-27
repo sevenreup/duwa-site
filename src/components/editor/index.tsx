@@ -22,14 +22,28 @@ import {
   DuwaWasmEventDetail,
   DuwaConsoleCommandEventDetail,
 } from "@/types/go";
+import { DuwaFile } from "@/types";
+import { GitReleaseInfo } from "contentlayer/generated";
 
 const duwaTml = import(
   "@/lang/duwa.tmLanguage.json"
 ) as Promise<LanguageRegistration>;
 
-export default function DuwaEditor() {
+export default function DuwaEditor({
+  sourceFiles,
+  release,
+}: {
+  sourceFiles: DuwaFile[];
+  release: GitReleaseInfo;
+}) {
+  const [selectedFile, setSelectedFile] = useState<DuwaFile | null>(
+    sourceFiles.find((file) => file.id === "moni_dziko.duwa") ||
+      sourceFiles[0] ||
+      null
+  );
+
   const [, loading] = useWasm("/duwa.wasm");
-  const [code, setCode] = useState(INITIAL_CODE);
+  const [code, setCode] = useState(selectedFile?.content || INITIAL_CODE);
   const [output, setOutput] = useState<DuwaWasmEventDetail[] | null>(null);
   const { resolvedTheme } = useTheme();
   const [isConsoleCollapsed, setIsConsoleCollapsed] = useState(false);
@@ -76,7 +90,7 @@ export default function DuwaEditor() {
   };
 
   const handleReset = () => {
-    setCode(INITIAL_CODE);
+    setCode(selectedFile?.content || INITIAL_CODE);
     resetConsole();
   };
 
@@ -84,9 +98,23 @@ export default function DuwaEditor() {
     window.duwaConsoleProcessInput(input);
   };
 
+  const onFileSelectionChange = (id: string) => {
+    const file = sourceFiles.find((f) => f.id === id);
+    if (file) {
+      setSelectedFile(file);
+      setCode(file.content);
+    }
+  };
+
   return (
     <div className="fixed inset-0 flex flex-col bg-background">
-      <Header loading={loading} />
+      <Header
+        loading={loading}
+        file={selectedFile?.id}
+        files={sourceFiles}
+        onFileChange={onFileSelectionChange}
+        release={release}
+      />
       <main className="flex-1 overflow-hidden">
         <ResizablePanelGroup
           direction="vertical"

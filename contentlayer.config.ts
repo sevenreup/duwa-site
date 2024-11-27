@@ -2,8 +2,8 @@ import {
   ComputedFields,
   defineDocumentType,
   defineNestedType,
-  makeSource,
 } from "contentlayer2/source-files";
+import { makeSource } from "contentlayer2/source-remote-files";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode, { Options as PrettyOptions } from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
@@ -12,6 +12,7 @@ import remarkGfm from "remark-gfm";
 import { visit } from "unist-util-visit";
 import fs from "fs";
 import { codeHighlighter } from "@/lib/highlihter";
+import { downloadGitHubRelease } from "@/lib/content/github";
 
 const duwa = JSON.parse(
   fs.readFileSync("./src/lang/duwa.tmLanguage.json", "utf8")
@@ -148,6 +149,44 @@ export const StructInfo = defineDocumentType(() => ({
   },
 }));
 
+export const GitReleaseInfo = defineDocumentType(() => ({
+  name: "GitReleaseInfo",
+  filePathPattern: `last_download.json`,
+  contentType: "data",
+  fields: {
+    id: { type: "number", required: true },
+    tag_name: { type: "string", required: true },
+    changelog: { type: "mdx", required: true },
+    draft: { type: "boolean", required: true },
+    prerelease: { type: "boolean", required: true },
+    published_at: { type: "string", required: true },
+    created_at: { type: "string", required: true },
+    html_url: { type: "string", required: true },
+  },
+}));
+
+const syncExamplesFromContentFromGit = async () => {
+  let wasCancelled = false;
+  let syncInterval: NodeJS.Timeout;
+
+  const syncLoop = async () => {
+    console.log("Syncing content files from git");
+
+    await downloadGitHubRelease();
+
+    if (wasCancelled) return;
+
+    syncInterval = setTimeout(syncLoop, 1000 * 60);
+  };
+
+  await syncLoop();
+
+  return () => {
+    wasCancelled = true;
+    clearTimeout(syncInterval);
+  };
+};
+
 export default makeSource(async () => {
   const lighter = await codeHighlighter(duwa);
   const prettyCodeOpts: PrettyOptions = {
@@ -173,8 +212,9 @@ export default makeSource(async () => {
     },
   };
   return {
+    syncFiles: syncExamplesFromContentFromGit,
     contentDirPath: "./content",
-    documentTypes: [Doc, StructInfo, LibraryInfo, BuiltinInfo],
+    documentTypes: [Doc, StructInfo, LibraryInfo, BuiltinInfo, GitReleaseInfo],
     mdx: {
       remarkPlugins: [remarkGfm, codeImport],
       rehypePlugins: [
