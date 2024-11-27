@@ -10,7 +10,7 @@ interface DocsLayoutProps {
 export default function DocsLayout({ children }: DocsLayoutProps) {
   return (
     <SidebarProvider>
-      <DocsSidebarNav config={docsConfig} />
+      <DocsSidebarNav config={docsConfig()} />
       <SidebarInset>
         <SiteHeader hasSideNav />
         {children}

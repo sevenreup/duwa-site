@@ -45,7 +45,7 @@ export function DocsSidebarNav({ config, ...props }: DocsSidebarNavProps) {
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">Documentation</span>
-                  <span className="">v{config.currentVersion}</span>
+                  <span className="">{config.currentVersion}</span>
                 </div>
               </a>
             </SidebarMenuButton>

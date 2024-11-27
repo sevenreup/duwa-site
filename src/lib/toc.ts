@@ -77,8 +77,6 @@ export async function getTableOfContents(
   content: string,
   gen: { source?: string; infoKey?: string }
 ): Promise<TableOfContents> {
-  console.log(gen);
-
   const result = (await remark().use(getToc).process(content)).data;
   if (gen.source && gen.infoKey) {
     const genToc = getGenDocTOC(gen.source.trim(), gen.infoKey.trim());
