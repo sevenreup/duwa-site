@@ -49,10 +49,12 @@ export default function DuwaEditor({
   const [isConsoleCollapsed, setIsConsoleCollapsed] = useState(false);
 
   const appendOutput = (message: DuwaWasmEventDetail) => {
+    console.log("Jewff",message);
     setOutput((prev) => [...(prev ?? []), message]);
   };
 
   const resetConsole = () => {
+    console.log("resetting console");
     setOutput([]);
   };
 
@@ -66,7 +68,11 @@ export default function DuwaEditor({
           resetConsole();
         }
         return;
-      } else if (event.type === "duwaLogEvent") {
+      } else if (
+        event.type === "duwaLogEvent" ||
+        event.type === "duwaRuntimeEvent"
+      ) {
+        console.log("appending output");
         appendOutput(event.detail as DuwaWasmEventDetail);
       }
     });

@@ -10,7 +10,7 @@ export type DuwaConsoleCommandEventDetail = {
 
 export type DuweWasmEvent = {
   detail: {
-    type: "duwaLogEvent" | "duwaConsoleCommandEvent";
+    type: "duwaLogEvent" | "duwaConsoleCommandEvent" | "duwaRuntimeEvent";
     detail: DuwaWasmEventDetail | DuwaConsoleCommandEventDetail;
   };
 } & Event;
