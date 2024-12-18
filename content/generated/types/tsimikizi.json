@@ -1,0 +1,9 @@
+{
+  "Name": "tsimikizi",
+  "Alternatives": [
+    "Boolean"
+  ],
+  "Doc": "The Boolean object represents two values: true and false.",
+  "Methods": [],
+  "SourceFile": "src\\object\\boolean.go"
+}

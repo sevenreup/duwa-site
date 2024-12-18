@@ -1,0 +1,50 @@
+---
+title: Type System
+description: Types are used to define the data structure of a variable.
+---
+
+## Types
+
+Every variable in Duwa has a type. The type of a variable determines the kind of data it can store. Duwa has a rich type system that includes the following types:
+
+### Built-in types
+
+- [Nambala (Number)](/docs/types/number)
+- [Mawu (String)](/docs/types/strings)
+- [Tsimikizi (Boolean)](/docs/types/boolean)
+- [Array](/docs/types/array)
+- [Palibe (Null)](/docs/types/null)
+
+### User-defined types
+
+- [Classes](/docs/types/classes)
+
+### Callable types
+
+- [Ndondomeko (Function)](/docs/basics/functions)
+
+## Type Annotations
+
+To explicitly specify the type of a variable, you can use a type annotation. To specify the type of a variable, you use the name of the type followed by the variable name. For example, to specify that a variable `x` is a number, you would write `number x`.
+
+```duwa
+nambala x = 42;
+mawu y = "Hello, world!";
+```
+
+## Type Inference
+
+Duwa is statically typed, which means that the type of a variable is known at compile time. However, Duwa also supports type inference, which means that the type of a variable can be inferred from its value. This allows you to write code without explicitly specifying the type of each variable.
+
+> Note: Type inference is not yet implemented in Duwa.
+
+## Type Conversion
+
+You can convert a value from one type to another using a type conversion. Duwa provides built-in functions for converting between types. For example, you can convert a string to a number using the `kuNambala` function.
+
+```duwa
+mawu x = "42";
+nambala y = kuNambala(x);
+```
+
+You can find more information about type conversion in the documentation for each type.

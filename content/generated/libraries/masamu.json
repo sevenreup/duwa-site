@@ -1,0 +1,59 @@
+{
+  "Name": "Masamu",
+  "Doc": "This is the math module\nIt contains functions for performing mathematical operations\nIt is used to perform mathematical calculations",
+  "Methods": [
+    {
+      "Name": "yochepa",
+      "Arguments": [
+        {
+          "Name": "number1",
+          "Type": "number"
+        },
+        {
+          "Name": "number2",
+          "Type": "number"
+        }
+      ],
+      "returns": "number",
+      "Doc": "This method returns the smaller of two numbers.\n\n`Example`\n```\nMasamu.yochepa(5, 10) # returns 5\n```"
+    },
+    {
+      "Name": "sqrt",
+      "Arguments": [
+        {
+          "Name": "number1",
+          "Type": "number"
+        }
+      ],
+      "returns": "number",
+      "Doc": "This method returns the square root of a number.\n\n`Example`\n```\nMasamu.sqrt(25) # returns 5\n```"
+    },
+    {
+      "Name": "round",
+      "Arguments": [
+        {
+          "Name": "number1",
+          "Type": "number"
+        },
+        {
+          "Name": "number2",
+          "Type": "number"
+        }
+      ],
+      "returns": "number",
+      "Doc": "This method rounds a number to a specified number of decimal places.\n\n`Example`\n```\nMasamu.round(5.678, 2) # returns 5.68\n```"
+    },
+    {
+      "Name": "pansi",
+      "Arguments": [
+        {
+          "Name": "number1",
+          "Type": "number"
+        }
+      ],
+      "returns": "number",
+      "Doc": "This method returns the largest integer less than or equal to a number.\n\n`Example`\n```\nMasamu.pansi(5.678) # returns 5\n```"
+    }
+  ],
+  "SourceFile": "src\\library\\modules\\math.go"
+}

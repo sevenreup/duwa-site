@@ -1,0 +1,90 @@
+---
+title: Basic syntax
+description: This is a collection of basic syntax elements with examples
+---
+
+## Variables
+
+```duwa
+nambala yambili = 2;
+mawu dzina = "Maliko";
+```
+
+## Comments
+
+We have both single-line and multi-line comments
+
+Single line comments start with // and continue to the end of the line.
+
+```duwa
+// Ndemanga ya mzere modzi
+```
+
+Block comments are enclosed within /_ ... _/ and can span as many lines as necessary.
+
+```duwa
+/*
+Ndemanga ya mizere yambiri
+*/
+```
+
+## Conditional expressions
+
+### if statement
+
+```duwa
+ngati(yoyamba > yachiwiri) {
+    // panga zinthu
+}
+```
+
+If you want to provide an else statement
+
+```duwa
+ngati(yoyamba > yachiwiri) {
+    // panga zinthu
+} kapena {
+    // panga zinthu
+}
+```
+
+## Loops
+
+### While loop
+
+```duwa
+pamene(yoyamba > 2) {
+    // panga zinthu
+    yoyamba++
+}
+```
+
+### For loop
+
+```duwa
+za(nambala x = 0; x > 5; x++) {
+    // panga zinthu
+}
+```
+### Break and continue
+#### `siya` (Break)
+`siya` is used to exit a loop prematurely (can used both in `pamene` and `za` loops).
+```duwa
+za(nambala x = 0; x > 5; x++) {
+    ngati(x == 3) {
+        siya;
+    }
+    // panga zinthu
+}
+```
+
+#### `pitirizani` (Continue)
+`pitirizani` is used to skip the current iteration of a loop and continue to the next one.
+```duwa
+za(nambala x = 0; x > 5; x++) {
+    ngati(x == 3) {
+        pitirizani;
+    }
+    // panga zinthu
+}
+```

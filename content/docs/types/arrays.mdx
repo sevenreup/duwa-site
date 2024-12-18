@@ -1,0 +1,54 @@
+---
+title: Arrays
+description: Arrays are ordered collections of elements.
+source: types
+infoKey: array
+---
+# Arrays
+
+An array is an ordered collection of elements. In Duwa, an array is a type that represents arrays. It is used to represent a list of values.
+
+Rules for arrays:
+
+- All elements in an array must be of the same type.
+- Arrays are zero-based, meaning the first element is at index `0`.
+- The size of an array is dynamic and can be changed at runtime.
+- Arrays can be multidimensional.
+
+## Syntax
+
+```duwa
+nambala[] x = [1, 2, 3, 4, 5];
+```
+
+## Accessing elements
+
+You can access elements of an array using the index. The index starts at `0`.
+
+```duwa
+nambala[] x = [1, 2, 3, 4, 5];
+Khonso.lemba(x[0]); // 1
+```
+
+## Updating elements
+
+You can update elements of an array using the index.
+
+```duwa
+nambala[] x = [1, 2, 3, 4, 5];
+x[0] = 10;
+Khonso.lemba(x[0]); // 10
+```
+
+## Examples usage
+
+```duwa
+nambala[] x = [1, 2, 3, 4, 5];
+Khonso.lemba(x[0]); // 1
+Khonso.lemba(x[1]); // 2
+Khonso.lemba(x[2]); // 3
+Khonso.lemba(x[3]); // 4
+Khonso.lemba(x[4]); // 5
+```
+
+<FunctionDocumentation source="types" infoKey="array" />

@@ -1,0 +1,150 @@
+{
+  "Name": "mawu",
+  "Alternatives": [
+    "String"
+  ],
+  "Doc": "The String object represents a string of characters.\nIt is used to store and manipulate text.\nIt is a sequence of characters, where each character is a Unicode code point.\nThe String object is immutable, meaning that once a String object is created, it cannot be modified.\nHowever, you can create a new String object based on the original String object.\nThe String object is a wrapper around the Go string type.",
+  "Methods": [
+    {
+      "Name": "kumalizaNdi",
+      "Arguments": [
+        {
+          "Name": "mawuOsintha",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "mawu",
+      "Doc": "This method checks if the string ends with the given string."
+    },
+    {
+      "Name": "peza",
+      "Arguments": [
+        {
+          "Name": "mawuOpeza",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "mawu",
+      "Doc": "This method finds the first occurrence of the given string in the string and returns it."
+    },
+    {
+      "Name": "pezaZonse",
+      "Arguments": [
+        {
+          "Name": "mawuOpeza",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "string[]",
+      "Doc": "This method finds all occurrences of the given string in the string and returns them."
+    },
+    {
+      "Name": "format",
+      "Arguments": [
+        {
+          "Name": "mawuOsintha",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "mawu",
+      "Doc": "This method formats the string with the given arguments."
+    },
+    {
+      "Name": "kutalika",
+      "Arguments": null,
+      "returns": "nambala",
+      "Doc": "This method returns the length of the string."
+    },
+    {
+      "Name": "gwirizana",
+      "Arguments": [
+        {
+          "Name": "mawuOsintha",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "nambala",
+      "Doc": "This method checks if the string matches the given regular expression."
+    },
+    {
+      "Name": "maloMwa",
+      "Arguments": [
+        {
+          "Name": "source",
+          "Type": "mawu"
+        },
+        {
+          "Name": "value",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "mawu",
+      "Doc": "This method replaces all occurrences of the given string with the new string."
+    },
+    {
+      "Name": "gawa",
+      "Arguments": [
+        {
+          "Name": "mawuOgawa",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "string[]",
+      "Doc": "This method splits the string by the given string and returns a list of strings."
+    },
+    {
+      "Name": "yayambaNdi",
+      "Arguments": [
+        {
+          "Name": "mawuOsintha",
+          "Type": "mawu"
+        }
+      ],
+      "returns": "mawu",
+      "Doc": "This method checks if the string starts with the given string."
+    },
+    {
+      "Name": "toLowerCase",
+      "Arguments": null,
+      "returns": "mawu",
+      "Doc": "This method converts the string to lowercase."
+    },
+    {
+      "Name": "kuNambala",
+      "Arguments": null,
+      "returns": "nambala",
+      "Doc": "This method converts the string to a number."
+    },
+    {
+      "Name": "kuMawu",
+      "Arguments": null,
+      "returns": "mawu",
+      "Doc": "This method converts the string to a string."
+    },
+    {
+      "Name": "toUpperCase",
+      "Arguments": null,
+      "returns": "mawu",
+      "Doc": "This method converts the string to uppercase."
+    },
+    {
+      "Name": "chepetsa",
+      "Arguments": null,
+      "returns": "mawu",
+      "Doc": "This method removes whitespace from the beginning and end of the string."
+    },
+    {
+      "Name": "chepetsaKuMapeto",
+      "Arguments": null,
+      "returns": "mawu",
+      "Doc": "This method removes whitespace from the end of the string."
+    },
+    {
+      "Name": "chepetsaKuchiyamba",
+      "Arguments": null,
+      "returns": "mawu",
+      "Doc": "This method removes whitespace from the beginning of the string."
+    }
+  ],
+  "SourceFile": "src\\object\\string.go"
+}

@@ -1,0 +1,34 @@
+{
+  "Name": "array",
+  "Alternatives": [
+    "Array"
+  ],
+  "Doc": "The Array object represents a list of elements.",
+  "Methods": [
+    {
+      "Name": "kutalika",
+      "Arguments": null,
+      "returns": "number",
+      "Doc": "Returns the number of elements in an array."
+    },
+    {
+      "Name": "chotsaKumbuyo",
+      "Arguments": null,
+      "returns": "any",
+      "Doc": "Removes the last element from an array and returns that element. This method changes the length of the array."
+    },
+    {
+      "Name": "Kankha",
+      "Arguments": null,
+      "returns": "number",
+      "Doc": "Adds one or more elements to the end of an array and returns the new length of the array."
+    },
+    {
+      "Name": "chotsaKutsogolo",
+      "Arguments": null,
+      "returns": "any",
+      "Doc": "Removes the first element from an array and returns that element. This method changes the length of the array."
+    }
+  ],
+  "SourceFile": "src\\object\\array.go"
+}

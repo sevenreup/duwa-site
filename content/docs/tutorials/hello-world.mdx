@@ -1,0 +1,265 @@
+---
+title: Hello World Tutorial
+description: A simple tutorial to get you started with Duwa
+---
+
+# Hello World in Duwa
+
+## Introduction
+
+Welcome to your first journey into the Duwa programming language! This tutorial goes beyond the traditional "Hello World" approach by creating an interactive, educational program that introduces you to fundamental programming concepts while using the unique features of Duwa.
+
+## 🎯 Learning Objectives
+
+By the end of this tutorial, you will:
+- Understand basic input and output operations in Duwa
+- Learn string manipulation techniques
+- Master control flow with conditional statements and loops
+- Create a function with user interaction
+- Handle basic error scenarios
+- Gain insights into the Duwa language design
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have:
+- Duwa programming language installed
+  - Follow [installation instructions](/docs#installation)
+  - Alternatively, use the [online Duwa playground](/playground)
+- A text editor or Integrated Development Environment (IDE)
+- Basic understanding of programming concepts (helpful but not required)
+
+## 🚀 Tutorial Sections
+
+### Part 1: Understanding Function Structure
+
+In Duwa, functions are defined using the `ndondomeko` keyword:
+
+```duwa
+ndondomeko moni_kwa_munthu() {
+    // Function body will go here
+}
+```
+
+Functions help organize code into reusable blocks.
+
+### Part 2: Basic Input and Output
+Lets start by creating two variables that we will use to store the user's first and last name, we set these values to empty strings:
+
+```duwa
+mawu lopatsidwa = "";
+mawu labambo = "";
+```
+Then lets greet the user and ask for their name, the user will enter their full name seperated by a space:
+
+```duwa
+
+Khonso.lemba("Mwalandiridwa ku Duwa Programming!");
+Khonso.lemba("Dzina lako ndindani?");
+mawu dzina = Khonso.landira();
+```
+
+- `Khonso.lemba()`: This writes text to the console
+- `Khonso.landira()`: Receives user input (The user will enter a value in  the console)
+- We are storing the user's input in a variable called `dzina`
+
+### Part 3: Name Validation and Processing
+
+Now we have the user's full name, we need to validate it and extract the first and last name. We will split the full name using the space character and store the array in separate variables:
+
+```duwa
+mawu dzinaLonse = dzina.gawa(" ");
+
+ngati (dzinaLonse.kutalika() != 2) {
+    Khonso.lemba("Dzina lanu likhala ndi dzina lopatsidwa ndi labambo.");
+}
+```
+- `gawa(" ")`: Splits the input string by space and returns an array of strings
+- `kutalika()`: Returns string length, we are checking if the array has exactly two elements (first and last name)
+- `ngati`: Conditional statement (equivalent to "if")
+
+We want to be able to prompt the user to enter their name again if they don't enter their first and last name, to do this we will use a loop. Lets modifiy the code to include a loop:
+
+```duwa
+mawu lopatsidwa = "";
+mawu labambo = "";
+
+pamene(zoona) {
+    Khonso.lemba("Dzina lako ndindani?");
+    mawu dzina = Khonso.landira();
+
+    mawu dzinaLonse = dzina.gawa(" ");
+
+    ngati (dzinaLonse.kutalika() != 2) {
+        Khonso.fufuta();
+        Khonso.lemba("Dzina lanu likhala ndi dzina lopatsidwa ndi labambo.");
+        pitirizani;
+    }
+}
+```
+
+We have added a `pamene(zoona)` loop which will keep running until the user enters their first and last name correctly.
+
+If the name that we have split does not have two parts we will clear the console using `Khonso.fufuta()` and prompt the user to enter their name again.
+We going back to the start of the loop using `pitirizani`.
+
+Now that we have the user's first and last name, we can extract and display them:
+
+```duwa
+pamene(zoona) {
+    // Existing code
+    lopatsidwa = dzinaLonse[0];
+    labambo = dzinaLonse[1];
+    Khonso.lemba("Moni " + lopatsidwa + "!");
+    Khonso.lemba("Dzina lanu lopatsidwa ndi yotalika ndi mawu " + lopatsidwa.kutalika());
+    siya;
+}
+```
+
+- We set the first name to `lopatsidwa` and the last name to `labambo` variables we created earlier
+- `siya`: Breaks out of the current loop
+
+### Part 4: Programming Experience Exploration
+
+We'll add an interactive section to gauge the user's programming experience:
+
+```duwa
+// Existing code (Outside the loop)
+Khonso.lemba("Mwankhala mukupanga programming kwazaka zingati?");
+
+nambala experience = 0;
+
+pamene(zoona) {
+    nambala experience = kuNambala(Khonso.landira());
+    ngati(experience == palibe) {
+        Khonso.lemba("Simunayike nambala, lowetsaninso");
+        pitirizani;
+    }
+    siya;
+}
+
+ngati (experience < 0) {
+    Khonso.lemba("Mukhoza kulemba nambala yoposa zero?");
+    pitirizani;
+}
+
+ngati (experience <= 1) {
+    Khonso.lemba("Takulandirani, pa ulendo wanu wa programming!");
+}
+
+ngati (experience > 1 && experience <= 5) {
+    Khonso.lemba("Pangono, pangono ntchito yikuyenda");
+}
+
+ngati (experience > 5) {
+    Khonso.lemba("Ndinu wodziwa zambiri. Mwina mundiphunzitsa posachedwa!");
+}
+```
+- The code is similar to the last one, we are asking the user for their programming experience and then if validation fails we prompt the user to enter their experience again using a loop.
+- Programming experience is a number so we convert the user's input to a number using `kuNambala()` since `Khonso.landira()` returns a string.
+-`kuNambala()` return `palibe` if the input is not a number, so we check for that and prompt the user to enter a number again.
+- Then we check the defferent levels of experience and display a message based on the user's experience.
+
+### Part 5: Complete Program
+
+Combining all elements into a single, interactive program:
+
+```duwa
+ndondomeko moni_kwa_munthu() {
+	mawu lopatsidwa = "";
+	mawu labambo = "";
+	pamene(zoona) {
+		Khonso.lemba("Dzina lako ndindani?");
+		mawu dzina = Khonso.landira();
+
+		mawu dzinaLonse = dzina.gawa(" ");
+
+		ngati (dzinaLonse.kutalika() != 2) {
+			Khonso.fufuta();
+			Khonso.lemba("Dzina lanu likhala ndi dzina lopatsidwa ndi labambo.");
+			pitirizani;
+		}
+		lopatsidwa = dzinaLonse[0];
+		labambo = dzinaLonse[1];
+		Khonso.lemba("Moni " + lopatsidwa + "!");
+		Khonso.lemba("Dzina lanu lopatsidwa ndi yotalika ndi mawu " + lopatsidwa.kutalika());
+		siya;
+	}
+
+	nambala experience = 0;
+	Khonso.lemba("Mwankhala mukupanga programming kwazaka zingati?");
+	pamene(zoona) {
+		nambala experience = kuNambala(Khonso.landira());
+		ngati(experience == palibe) {
+			Khonso.lemba("Simunayike nambala, lowetsaninso");
+			pitirizani;
+		}
+		siya;
+	}
+
+	ngati (experience < 0) {
+		Khonso.lemba("Mukhoza kulemba nambala yoposa zero?");
+		pitirizani;
+	}
+
+	ngati (experience <= 1) {
+		Khonso.lemba("Takulandirani, pa ulendo wanu wa programming!");
+	}
+
+	ngati (experience > 1 && experience <= 5) {
+		Khonso.lemba("Pangono, pangono ntchito yikuyenda");
+	}
+
+	ngati (experience > 5) {
+		Khonso.lemba("Ndinu wodziwa zambiri. Mwina mundiphunzitsa posachedwa!");
+	}
+}
+
+moni_kwa_munthu();
+```
+
+## 🖥️ Running the Program
+
+1. Save the code in a file with `.duwa` extension (e.g., `hello_world.duwa`)
+2. Use the Duwa interpreter to run:
+   ```bash
+   duwa run hello_world.duwa
+   ```
+
+## 🎮 Sample Interaction
+
+```
+Dzina lako ndindani?
+John Doe
+Moni John!
+Dzina lanu lopatsidwa ndi yotalika ndi mawu 2
+Mwankhala mukupanga programming kwazaka zingati?
+2
+Pangono, pangono ntchito yikuyenda
+```
+
+## 🏋️ Challenges and Exercises
+
+1. **Enhanced Name Validation**
+   - Add checks for special characters
+   - Implement maximum retry attempts
+   - Validate name length
+   - Check if the name containes numbers
+
+2. **Experience Level Depth**
+    - Provide personalized learning resources
+    
+## 🚦 Next Learning Paths
+
+- Explore advanced Duwa language features
+- Build more complex interactive programs
+- Contribute to the Duwa language community
+- Share your learning journey
+
+
+## 🎉 Conclusion
+
+Congratulations! You've created an interactive Hello World program that goes beyond simple text printing. You've learned fundamental programming concepts while experiencing the unique design of the Duwa language.
+
+Remember: Programming is a journey of continuous learning. Keep exploring, stay curious, and enjoy the process! 🚀
+
+**Happy Coding in Duwa!**

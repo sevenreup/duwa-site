@@ -1,0 +1,9 @@
+{
+  "Name": "nambala",
+  "Alternatives": [
+    "Number"
+  ],
+  "Doc": "The Integer object represents a number.",
+  "Methods": [],
+  "SourceFile": "src\\object\\integer.go"
+}

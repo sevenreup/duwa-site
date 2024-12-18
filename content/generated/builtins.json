@@ -1,0 +1,47 @@
+{
+  "Data": [
+    {
+      "Functions": [
+        {
+          "Name": "kuNambala",
+          "Arguments": [
+            {
+              "Name": "value",
+              "Type": "string"
+            }
+          ],
+          "returns": "integer",
+          "Doc": "The kuNambala function converts a string to a number."
+        }
+      ],
+      "SourceFile": "src\\library\\functions\\converters.go"
+    },
+    {
+      "Functions": [
+        {
+          "Name": "lemba",
+          "Arguments": [
+            {
+              "Name": "valueToPrint",
+              "Type": "any"
+            }
+          ],
+          "returns": "null",
+          "Doc": "The lemba function prints a value to the console."
+        },
+        {
+          "Name": "lembanzr",
+          "Arguments": [
+            {
+              "Name": "valueToPrint",
+              "Type": "any"
+            }
+          ],
+          "returns": "null",
+          "Doc": "The lembanzr function prints a value to the console and adds a newline."
+        }
+      ],
+      "SourceFile": "src\\library\\functions\\print.go"
+    }
+  ]
+}

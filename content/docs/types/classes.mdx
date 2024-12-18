@@ -1,0 +1,60 @@
+---
+title: Classes
+description: This is a collection of basic syntax elements with examples
+---
+
+# Classes
+
+Classes are a grouping of functions and variables
+
+## Define class
+
+You can create a class using the `kalasi` keyword
+
+```duwa
+kalasi Munthu {}
+```
+
+## Methods
+
+To add some behavior to the class you can create a method (same way you write a function)
+
+```duwa
+kalasi Munthu {
+    ndondomeko ndiNdani() {
+        Khonso.lemba("Mariya Malizeni");
+    }
+}
+```
+
+Methods can also take arguments
+
+```duwa
+kalasi Munthu {
+    ndondomeko yikaZaka(zaka) {
+        Khonso.lemba(zaka);
+    }
+}
+```
+
+## Properties
+
+To add properties in a class, create a new variable in the class scope
+
+```duwa
+kalasi Munthu {
+    numbala zaka = 2;
+}
+```
+
+## Create Object
+After you define a class time to final use it, you can use a class by creating a new object
+
+```duwa
+Munthu munthu = Munthu();
+```
+You can now call methods on that class
+
+```duwa
+munthu.ndiNdani();
+```
