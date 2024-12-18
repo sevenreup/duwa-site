@@ -66,3 +66,25 @@ za(nambala x = 0; x > 5; x++) {
     // panga zinthu
 }
 ```
+### Break and continue
+#### `siya` (Break)
+`siya` is used to exit a loop prematurely (can used both in `pamene` and `za` loops).
+```duwa
+za(nambala x = 0; x > 5; x++) {
+    ngati(x == 3) {
+        siya;
+    }
+    // panga zinthu
+}
+```
+
+#### `pitirizani` (Continue)
+`pitirizani` is used to skip the current iteration of a loop and continue to the next one.
+```duwa
+za(nambala x = 0; x > 5; x++) {
+    ngati(x == 3) {
+        pitirizani;
+    }
+    // panga zinthu
+}
+```

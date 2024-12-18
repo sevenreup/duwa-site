@@ -42,6 +42,7 @@ export const docsConfig: () => DocsConfig = () => {
             items: [],
           },
           { title: "Imports", href: "/docs/basics/imports", items: [] },
+          { title: "Palibe (Null)", href: "/docs/basics/null", items: [] },
         ],
       },
       {
