@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site";
 import { ModeSwitcher } from "./mode-switcher";
 import { Icons } from "./icons";
 import Link from "next/link";
-import { Home } from "lucide-react";
+import {  Home } from "lucide-react";
 
 export const SiteHeader = ({
   hasSideNav,
@@ -17,7 +17,7 @@ export const SiteHeader = ({
   showLogo?: boolean;
 }) => {
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+    <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 sticky border-grid  top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex flex-row w-full items-center">
         {hasSideNav && (
           <>
