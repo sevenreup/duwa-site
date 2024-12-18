@@ -9,11 +9,100 @@ Duwa is a simple programming language that is easy to learn and use. It is desig
 
 It is a great language for learning the basics of programming and for building simple applications.
 
+## Playground
+
+You can try out Duwa in the [playground](https://www.duwa.cphiri.dev/playground) without installing it.
+
 ## Installation
 
-Download the prebuilt binaries for your platform from the [release](https://github.com/sevenreup/duwa/releases).
+Download the prebuilt binaries for your platform from the github [releases](https://github.com/sevenreup/duwa/releases) or follow the intructions for your platform below. Add the binary to your path or run it from the directory where you downloaded it.
 
-You can add the binary to your path or run it from the directory where you downloaded it.
+
+<Tabs defaultValue="windows">
+
+<TabsList>
+    <TabsTrigger value="windows">Windows</TabsTrigger>
+    <TabsTrigger value="mac">Apple macOS</TabsTrigger>
+    <TabsTrigger value="linux">Linux</TabsTrigger>
+</TabsList>
+<TabsContent value="windows">
+<ReleaseDownloader platform="windowsDowloadUrl"/>
+1. **Download the Archive**
+2. **Extract the Archive**
+   - Right-click the downloaded zip file
+   - Select "Extract All..."
+   - Choose a destination folder (e.g., `C:\Program Files\Duwa`)
+
+3. **Add to PATH**
+   - Open "Edit the system environment variables" from the Start menu
+   - Click "Environment Variables..."
+   - Under "System variables", find and select "Path", then click "Edit"
+   - Click "New" and add the full path to the folder containing `duwa.exe`
+     (e.g., `C:\Program Files\Duwa`)
+   - Click "OK" to close all windows
+
+4. **Verify Installation**
+   - Open Command Prompt
+   ```
+   duwa --version
+   ```
+
+</TabsContent>
+<TabsContent value="mac">
+<ReleaseDownloader platform="macIntelDowloadUrl|macArmDowloadUrl"/>
+1. **Download the Archive**
+2. **Extract the Archive**
+   ```bash
+   unzip [name of archieve].zip
+   ```
+
+3. **Move to Applications or Bin Directory**
+   ```bash
+   sudo mkdir -p /usr/local/bin
+   sudo mv duwa /usr/local/bin/
+   ```
+
+4. **Make Executable**
+   ```bash
+   sudo chmod +x /usr/local/bin/duwa
+   ```
+
+5. **Verify Installation**
+   ```bash
+   duwa --version
+   ```
+</TabsContent>
+<TabsContent value="linux">
+<ReleaseDownloader platform="linuxsDowloadUrl"/>
+1. **Download the Archive**
+
+2. **Extract the Archive**
+   ```bash
+   unzip [name of archieve].zip
+   ```
+
+3. **Move to Applications or Bin Directory**
+   ```bash
+   sudo mkdir -p /usr/local/bin
+   sudo mv duwa /usr/local/bin/
+   ```
+
+4. **Make Executable**
+   ```bash
+   sudo chmod +x /usr/local/bin/duwa
+   ```
+</TabsContent>
+</Tabs>
+
+### Troubleshooting
+
+- **Permission Issues**: 
+  - On Linux/macOS, use `sudo` if you encounter permission errors
+  - On Windows, run Command Prompt or PowerShell as Administrator
+
+- **PATH Not Working**: 
+  - Restart your terminal/command prompt after modifying PATH
+  - Verify the path is correctly added
 
 ## Getting Started
 
@@ -30,7 +119,3 @@ Run you new application
 ```bash
 duwa -f ./main.duwa
 ```
-
-## Playground
-
-You can try out Duwa in the [playground](https://www.duwa.cphiri.dev/playground) without installing it.

@@ -2,6 +2,7 @@ import {
   ComputedFields,
   defineDocumentType,
   defineNestedType,
+  LocalDocument,
 } from "contentlayer2/source-files";
 import { makeSource } from "contentlayer2/source-remote-files";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -162,8 +163,89 @@ export const GitReleaseInfo = defineDocumentType(() => ({
     published_at: { type: "string", required: true },
     created_at: { type: "string", required: true },
     html_url: { type: "string", required: true },
+    assets: { type: "list", of: GitReleaseData, default: [] },
+  },
+  computedFields: releaseLinksComputedFields,
+}));
+
+const GitReleaseData = defineNestedType(() => ({
+  name: "GitReleaseData",
+  fields: {
+    id: { type: "number", required: true },
+    name: { type: "string", required: true },
+    label: { type: "string", required: true },
+    browser_download_url: { type: "string", required: true },
   },
 }));
+
+const createNestedReleaseLinks = ({
+  doc,
+  platform,
+  search,
+  desc,
+}: {
+  doc: LocalDocument;
+  platform: string;
+  desc: string;
+  search: string;
+}) => {
+  const data =
+    doc?.assets?._array?.find((a: { name: string | string[] }) =>
+      a.name.includes(search)
+    ) ?? {};
+  return {
+    ...data,
+    platform,
+    desc,
+  };
+};
+
+const releaseLinksComputedFields: ComputedFields = {
+  windowsDowloadUrl: {
+    type: "nested",
+    resolve: (doc) => {
+      return createNestedReleaseLinks({
+        doc,
+        platform: "Microsoft Windows",
+        desc: "Windows 10 or later, Intel 64-bit processor",
+        search: "windows",
+      });
+    },
+  },
+  linuxsDowloadUrl: {
+    type: "nested",
+    resolve: (doc) => {
+      return createNestedReleaseLinks({
+        doc,
+        platform: "Linux",
+        search: "linux_amd64",
+        desc: "Linux, Intel 64-bit processor",
+      });
+    },
+  },
+  macArmDowloadUrl: {
+    type: "nested",
+    resolve: (doc) => {
+      return createNestedReleaseLinks({
+        doc,
+        platform: "Apple Silicon",
+        search: "darwin_arm64",
+        desc: "macOS 11 or later, Apple 64-bit processor",
+      });
+    },
+  },
+  macIntelDowloadUrl: {
+    type: "nested",
+    resolve: (doc) => {
+      return createNestedReleaseLinks({
+        doc,
+        platform: "Intel Mac",
+        search: "darwin_amd64",
+        desc: "macOS 11 or later, Intel 64-bit processor",
+      });
+    },
+  },
+};
 
 const syncExamplesFromContentFromGit = async () => {
   let wasCancelled = false;
