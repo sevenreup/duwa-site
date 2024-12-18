@@ -60,17 +60,8 @@ export async function downloadGitHubRelease(): Promise<boolean> {
   try {
     // Ensure downloads directory exists
     ensureDirectoryExists(DOWNLOAD_DIR);
-    const lastDownloadedVersion = getLastDownloadedVersion();
+    const lastDownloadedVersion = getLastDownloadedVersion() ?? 0;
     const folderNotEmpty = fs.readdirSync(EXAMPLES_DIR).length > 0;
-    // Check if examples already exist
-    if (
-      fs.existsSync(EXAMPLES_DIR) &&
-      folderNotEmpty &&
-      lastDownloadedVersion
-    ) {
-      console.log("Examples already downloaded");
-      return false;
-    }
 
     // Fetch the latest release information
     const releaseUrl = `https://api.github.com/repos/sevenreup/duwa/releases/latest`;
@@ -90,7 +81,11 @@ export async function downloadGitHubRelease(): Promise<boolean> {
     const release: GitHubRelease = await releaseResponse.json();
 
     // Check if this is a new release
-    if (lastDownloadedVersion === release.id && folderNotEmpty) {
+    if (
+      fs.existsSync(EXAMPLES_DIR) &&
+      lastDownloadedVersion === release.id &&
+      folderNotEmpty
+    ) {
       console.log("No new release to download");
       return false;
     }

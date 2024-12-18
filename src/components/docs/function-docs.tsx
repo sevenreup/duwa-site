@@ -10,7 +10,7 @@ const FunctionDocumentationComponent = ({
 }: {
   functionInfo: FunctionInfo;
 }) => {
-  const { Name, Arguments = [], RetunType, Doc } = functionInfo;
+  const { Name, Arguments = [], returns, Doc } = functionInfo;
   return (
     <Card className="w-full mb-6">
       <CardHeader>
@@ -27,9 +27,9 @@ const FunctionDocumentationComponent = ({
             ))}
           </span>
           )
-          {RetunType && (
+          {returns && (
             <>
-              → <span className="text-primary">{RetunType}</span>
+              → <span className="text-primary">{returns}</span>
             </>
           )}
         </CardTitle>
@@ -53,11 +53,11 @@ const FunctionDocumentationComponent = ({
               </div>
             </div>
           )}
-          {RetunType && (
+          {returns && (
             <div className="mt-2">
               <h4 className="text-sm font-semibold mb-2">Returns</h4>
               <Badge variant="outline" className="font-mono">
-                {RetunType}
+                {returns}
               </Badge>
             </div>
           )}

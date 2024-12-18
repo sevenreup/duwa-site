@@ -103,7 +103,7 @@ const FunctionInfo = defineNestedType(() => ({
   fields: {
     Name: { type: "string", required: true },
     Arguments: { type: "list", of: ArgumentData, default: [] },
-    RetunType: { type: "string", required: true },
+    returns: { type: "string", required: true },
     Doc: { type: "mdx", required: true },
   },
 }));
